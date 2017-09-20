@@ -103,6 +103,7 @@ class AdjacencyList(object):
         pass
 
     def add_node(self, node):
+        
         pass
 
     def remove_node(self, node):
@@ -159,7 +160,13 @@ class ObjectOriented(object):
         pass
 
     def add_node(self, node):
-        pass
+        print(node in self.nodes)
+        print("\n")
+        print(node)
+        print("\n")
+        print(self.nodes)
+        
+
 
     def remove_node(self, node):
         pass
