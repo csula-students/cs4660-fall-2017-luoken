@@ -103,7 +103,12 @@ class AdjacencyList(object):
         pass
 
     def add_node(self, node):
-        
+        if node not in self.adjacency_list:
+            self.adjacency_list[node] = {}
+            return True
+        else:
+            return False
+            #return true if node is added false if its already there
         pass
 
     def remove_node(self, node):
@@ -160,15 +165,18 @@ class ObjectOriented(object):
         pass
 
     def add_node(self, node):
-        print(node in self.nodes)
-        print("\n")
-        print(node)
-        print("\n")
-        print(self.nodes)
+        if node not in self.nodes:
+            self.nodes.append(node)
+            print("self nodes " + str(self.nodes))
+            return True
+        else:
+            print("self nodes1 " + str(self.nodes))
+            return False
         
 
 
     def remove_node(self, node):
+
         pass
 
     def add_edge(self, edge):
