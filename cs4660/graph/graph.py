@@ -39,21 +39,29 @@ def construct_graph_from_file(graph, file_path):
     openFile = open(file_path)
     readFile = openFile.read()
     splitByNewLine = readFile.split("\n")
-    numberOfNodes = splitByNewLine[0]
+    
+    numberOfNodes = int(splitByNewLine[0][0])
+    
     afterRemovalOfFirstLine = splitByNewLine[1:]
+    
     nodeValues = [splitValues.split(":") for splitValues in afterRemovalOfFirstLine if splitValues != ""]
 
-    graph.add_node(Node(numberOfNodes))
-    for x in nodeValues:
-        graph.add_edge(Edge(x[0],x[1],x[2]))
+    for node in range(0, numberOfNodes):
+        graph.add_node(Node(node))
+    
+    for x in range(0, len(nodeValues)):
+        graph.add_edge(Edge(Node(int(nodeValues[x][0])), Node(int(nodeValues[x][1])), int(nodeValues[x][2])))
         
+    for x in range(0, len(nodeValues)):
+        print(int(nodeValues[x][0]),int(nodeValues[x][1]),int(nodeValues[x][2]))
+        
+    openFile.close()
     return graph
 
 class Node(object):
     """Node represents basic unit of graph"""
     def __init__(self, data):
         self.data = data
-
     def __str__(self):
         return 'Node({})'.format(self.data)
     def __repr__(self):
@@ -167,14 +175,10 @@ class ObjectOriented(object):
     def add_node(self, node):
         if node not in self.nodes:
             self.nodes.append(node)
-            print("self nodes " + str(self.nodes))
             return True
         else:
-            print("self nodes1 " + str(self.nodes))
             return False
         
-
-
     def remove_node(self, node):
 
         pass
