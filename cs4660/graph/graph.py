@@ -47,10 +47,12 @@ def construct_graph_from_file(graph, file_path):
     for node in range(0, numberOfNodes): # create and add nodes to graph
          graph.add_node(Node(node))
 
-    for lineNumber in range(0, len(restOfLines)): # start from 1 since first line is number of nodes
-        graph.add_edge(Edge(Node(int(restOfLines[lineNumber][0])), Node(int(restOfLines[lineNumber][1])), int(restOfLines[lineNumber][2])))
-        
+    # for lineNumber in range(0, len(restOfLines)): # start from 1 since first line is number of nodes
+    #     graph.add_edge(Edge(Node(int(restOfLines[lineNumber][0])), Node(int(restOfLines[lineNumber][1])), int(restOfLines[lineNumber][2])))
 
+    for lineNumber in restOfLines:
+        graph.add_edge(Edge(Node(int(lineNumber[0])), Node(int(lineNumber[1])), int(lineNumber[2])))
+        
     openFile.close()
 
     return graph
@@ -102,8 +104,30 @@ class AdjacencyList(object):
         self.adjacency_list = {}
 
     def adjacent(self, node_1, node_2):
-        print(self.adjacency_list)
-        pass
+        # if node_1 in self.adjacency_list and node_2 in self.adjacency_list:
+        #     for nodeVal in self.adjacency_list:
+        #         if(nodeVal.from_node == node_1 and nodeVal.to_node == node_2):
+        #            return True
+        #     return False
+        # else:
+        #     return False
+
+        # if(node_1 in self.adjacency_list and node_2 in self.adjacency_list):
+        #     for edge in self.adjacency_list[node_1]:
+        #         if(edge.from_node == node_1 and edge.to_node == node_2):
+        #             return True
+        #         else:
+        #     return False # didn't find adjacent nodes, though they did exist in list
+        # else:
+        #     return False
+        print("node 1")
+        print(node_1.from_node)
+        print(node_1.to_node)
+        print(node_1.weight)
+
+        print("node 2")
+        print(node_2)
+
 
     def neighbors(self, node):
         pass
