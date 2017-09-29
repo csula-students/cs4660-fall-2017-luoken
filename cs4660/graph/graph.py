@@ -90,7 +90,6 @@ class Edge(object):
     def __hash__(self):
         return hash((self.from_node, self.to_node, self.weight))
 
-
 class AdjacencyList(object):
     """
     AdjacencyList is one of the graph representation which uses adjacency list to
@@ -123,8 +122,15 @@ class AdjacencyList(object):
             return False
 
     def remove_node(self, node):
-        pass
-
+        if node in self.adjacency_list:
+            del self.adjacency_list[node]
+            for line in self.adjacency_list:
+                for val in self.adjacency_list[line]:
+                    if val.to_node == node:
+                        self.remove_edge(val)
+            return True
+        else:
+            return False
 
     def add_edge(self, edge):
         if edge not in self.adjacency_list[edge.from_node]:
@@ -134,9 +140,13 @@ class AdjacencyList(object):
             return False
 
     def remove_edge(self, edge):
-        if edge in self.adjacency_list:
-            return true
-        pass
+        if edge.from_node in self.adjacency_list:
+            if edge in self.adjacency_list[edge.from_node]:
+                self.adjacency_list[edge.from_node].remove(edge)
+                return True
+            else:
+                return False
+        return False
 
 class AdjacencyMatrix(object):
     def __init__(self):
@@ -193,7 +203,14 @@ class AdjacencyMatrix(object):
             return False
 
     def remove_edge(self, edge):
-        pass
+        if edge.from_node in self.nodes and edge.to_node in self.nodes:
+            if self.adjacency_matrix[self.__get_node_index(edge.from_node)][self.__get_node_index(edge.to_node)] != 0:
+                self.adjacency_matrix[self.__get_node_index(edge.from_node)][self.__get_node_index(edge.to_node)] = 0
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def __get_node_index(self, node):
         """helper method to find node index"""
