@@ -188,7 +188,15 @@ class AdjacencyMatrix(object):
             return False
     
     def remove_node(self, node):
-        pass
+        if node in self.nodes:
+            node_index = self.__get_node_index(node)
+            self.nodes.remove(node)
+            for val in self.adjacency_matrix:
+                del val[node_index]
+            del self.adjacency_matrix[node_index]
+            return True
+        else:
+            return False
 
     def add_edge(self, edge):
         if edge.from_node in self.nodes and edge.to_node in self.nodes:
