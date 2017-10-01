@@ -1,0 +1,29 @@
+1. Explain with the runtime analysis on each method you have implemented in each of the representation using Big-o notation
+
+		adjacency list		adjacency matrix		object oriented
+Add node:	O(n)	  		O(nlogn)    			O(1)
+Add edge:	O(1)			O(n)				O(1)
+Adjacent:	O(nlogn)		O(n)				O(nlogn)
+Neighbors:	O(n)			O(nlogn)			O(nlogn)
+Remove Node:	O(n^2)			O(nlogn)			O(nlogn)
+Remove Edge:	O(n)			O(n)				O(1)
+
+2. Consider chess, what is the performance measure, environment, actuator and sensor?
+
+Performance Measure: Critical thinking, creating strategies 
+Environment: Chess board field
+Actuator: hands 
+Sensor: brain, eyes
+
+3. Same with chess, formulate the problem in 5 components (initial state, possible actions, transition model, goal test, and path cost)
+
+initial state: beginning of the game with the pawns up top, rooks, knight, bishop, queen, and king in the back
+possible action: Pawns can move forward and attack one space diagonal, rooks can only move and attack in straight line, knight has to move in L shape and only up to 4 spaces and is able to attack that spot it lands on, bishop can only move and attack diagonal, queen can attack and move in straight line and attack with the combination of rook, and bishop. King is able to move and attack within one square. 
+transition mode: given the state and possible action, a unit will move and perform its task. given the state and possible action, a unit will move and perform its task. given the state and possible action, a unit will move and perform its task. given the state and possible action, a unit will move and perform its task. given the state and possible action, a unit will move and perform its task. given the state and possible action, a unit will move and perform its task. given the state and possible action, a unit will move and perform its task. given the state and possible action, a unit will move and perform its task. 
+goal test: This checks whether a checkmate has happened or not
+path cost: each turn would cost 1
+
+4. Define Chess environment type, is it fully observable or partially observable, is it deterministic or stochastic, is it discrete or continuous, is it benign or adversarial?
+
+Chess environment is fully observable. You're able to see your pieces as well as the opponent pieces all at the same time. There is no "fog of war" effect going on. It is also deterministic, discrete, and benign.
+

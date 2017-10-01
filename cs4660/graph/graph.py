@@ -253,7 +253,7 @@ class ObjectOriented(object):
     def add_node(self, node):
         if node not in self.nodes:
             self.nodes.append(node)
-            return True
+            return True  
         else:
             return False
         
