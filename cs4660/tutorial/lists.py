@@ -21,8 +21,5 @@ def get_sum(li):
 
 def get_avg(li):
     """Returns the average of the list items"""
-    holder = 0
-    for i in li:
-        holder = holder + i
-    answer = holder / len(li)
-    return answer
+    sum = get_sum(li)
+    return (sum/len(li))
