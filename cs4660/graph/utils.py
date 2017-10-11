@@ -36,7 +36,12 @@ def parse_grid_file(graph, file_path):
     Returns graph object
     """
     # TODO: read the filepaht line by line to construct nodes & edges
-
+    
+    openFile = open(file_path)
+    readFile = openFile.read()
+    
+    
+    
     # TODO: for each node/edge above, add it to graph
 
     return graph
@@ -47,4 +52,17 @@ def convert_edge_to_grid_actions(edges):
 
     e.g. Edge(Node(Tile(1, 2), Tile(2, 2), 1)) => "S"
     """
-    return ""
+
+    if edges.from_node.x > edges.to_node.x:
+        return "W"
+    elif edges.from_node.x < edges.to_node.x:
+        return "E"
+    elif edges.from_node.y > edges.to_node.y:
+        return "S"
+    else:
+        return "N"
+    
+
+    
+
+
