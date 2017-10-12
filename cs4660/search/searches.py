@@ -67,7 +67,8 @@ def bfs(graph, initial_node, dest_node):
         while parents[current]:
             for node in parents:
                 if current == node:
-                    path.append(g.Edge(parents[node], current, graph.weight(parents[node],current)))
+                    path.append(g.Edge(parents[node], current, 1))
+#                    path.append(g.Edge(parents[node], current, graph.weight(parents[node],current)))
                     current = parents[node]
 
     path = path[::-1]
