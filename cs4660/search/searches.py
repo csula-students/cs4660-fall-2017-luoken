@@ -14,39 +14,13 @@ def bfs(graph, initial_node, dest_node):
     #use a queue for this one
     q = Queue()
     q.put(initial_node)
-
-    '''
-    pop off initial
-
-    get the list of neigbors
-
-    add each to the queue if not already inside
-
-    if inside list already skip
-
-    else pop
-
-    graph has adjacent, returns true if node 1 and node 2 are directly connected
-
-    neighbors(node) returns all nodes that is adjacenct from node
-
-    edge
-
-    '''
+    
     iterated = []
     path = []
-    d = 0 #this will be for the distance. increment once each time you go to next level
-    
-    #will be how far it is for one to traverse to the next node
-    distance = {}
-    #will be for parents
     parents = {}
-
-    #maps through the entire list
     while q:
         if(q.empty()):
             break
-        
         current = q.get(0) #get the first element
 
         if current not in iterated: #if its not in iterated, add it to iterated to keep track of all the items iterated through
@@ -59,7 +33,6 @@ def bfs(graph, initial_node, dest_node):
             else:
                 if node not in parents:
                     parents[node] = current
-
             q.put(node)
             
     if dest_node in parents: #checks to see if the destination node is in parents, continue
@@ -67,8 +40,7 @@ def bfs(graph, initial_node, dest_node):
         while parents[current]:
             for node in parents:
                 if current == node:
-                    path.append(g.Edge(parents[node], current, 1))
-#                    path.append(g.Edge(parents[node], current, graph.weight(parents[node],current)))
+                    path.append(g.Edge(parents[node], current, graph.get_edge_weight(parents[node],current)))
                     current = parents[node]
 
     path = path[::-1]
@@ -81,8 +53,121 @@ def dfs(graph, initial_node, dest_node):
     returns a list of actions going from the initial node to dest_node
     """
     #probably use recursion to keep searching or use stack
+    iterated = []
+    path = []
+    parents = {}
+    stack = []
+
+
+
+    # stack.append(initial_node)
+
+    # current = stack.pop()
+    # iterated.append(current)
+    # print(stack)
+
     
-    pass
+    # temp = []
+    # for node in graph.neighbors(current):
+    #     if node not in iterated:
+    #         temp.append(node)
+
+    # temp = temp[::-1]
+    # for t in temp:
+    #     stack.append(t)
+
+        
+    # current = stack.pop()
+    # iterated.append(current)
+    # del temp[:]
+
+    # for node in graph.neighbors(current):
+    #     if node not in iterated:
+    #         temp.append(node)
+
+    # temp = temp[::-1]
+    # for t in temp:
+    #     stack.append(t)
+
+        
+    # print("stack ", stack)
+    # print("iterated ", iterated)
+
+
+    # current = stack.pop()
+    # iterated.append(current)
+    # del temp[:]
+
+    # for node in graph.neighbors(current):
+    #     if node not in iterated:
+    #         temp.append(node)
+
+    # temp = temp[::-1]
+    # for t in temp:
+    #     stack.append(t)
+
+        
+    # print("stack ", stack)
+    # print("iterated ", iterated)
+
+
+    # current = stack.pop()
+    # iterated.append(current)
+    # del temp[:]
+
+    # for node in graph.neighbors(current):
+    #     if node not in iterated:
+    #         temp.append(node)
+
+    # temp = temp[::-1]
+    # for t in temp:
+    #     stack.append(t)
+
+        
+    # print("stack ", stack)
+    # print("iterated ", iterated)
+
+    
+    # current = stack.pop()
+    # iterated.append(current)
+    # del temp[:]
+
+    # for node in graph.neighbors(current):
+    #     if node not in iterated:
+    #         temp.append(node)
+
+    # temp = temp[::-1]
+    # for t in temp:
+    #     if current in stack:
+    #         remove(current)
+    #         stack.append(t)
+
+        
+    # print("stack ", stack)
+    # print("iterated ", iterated)
+
+    
+    # current = stack.pop()
+    # iterated.append(current)
+    # del temp[:]
+
+    # for node in graph.neighbors(current):
+    #     if node not in iterated:
+    #         temp.append(node)
+
+    # temp = temp[::-1]
+    # for t in temp:
+    #     stack.append(t)
+
+        
+    # print("stack ", stack)
+    # print("iterated ", iterated)
+
+
+
+    
+    
+    
 
 def dijkstra_search(graph, initial_node, dest_node):
     """

@@ -132,9 +132,15 @@ class AdjacencyList(object):
     def add_edge(self, edge):
         if edge not in self.adjacency_list[edge.from_node]:
             self.adjacency_list[edge.from_node].append(edge)
+            # listofshit = self.adjacency_list[Node(1)]
+            # for shit in listofshit:
+            #     if(shit.from_node == Node(1) and shit.to_node == Node(2)):
+            #         print(shit)
+            #         print(shit.weight)
             return True
         else:
             return False
+        
 
     def remove_edge(self, edge):
         if edge.from_node in self.adjacency_list:
@@ -144,6 +150,11 @@ class AdjacencyList(object):
             else:
                 return False
         return False
+
+    def get_edge_weight(self, node_1, node_2):
+        for node in self.adjacency_list[node_1]:
+            if(node.from_node == node_1 and node.to_node == node_2):
+                return node.weight
 
 class AdjacencyMatrix(object):
     def __init__(self):
@@ -221,6 +232,9 @@ class AdjacencyMatrix(object):
         """helper method to find node index"""
         return self.nodes.index(node)
 
+    def get_edge_weight(self, node_1, node_2):
+        return self.adjacency_matrix[self.__get_node_index(node_1)][self.__get_node_index(node_2)]
+
 class ObjectOriented(object):
     """ObjectOriented defines the edges and nodes as both list"""
     def __init__(self):
@@ -276,3 +290,9 @@ class ObjectOriented(object):
             return True
         else:
             return False
+        
+    def get_edge_weight(self, node_1, node_2):
+        for edge in self.edges:
+            if edge.from_node == node_1 and edge.to_node == node_2:
+                return edge.weight
+
