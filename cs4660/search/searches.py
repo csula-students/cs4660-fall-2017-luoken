@@ -62,31 +62,33 @@ def dfs(graph, initial_node, dest_node):
 
     while stack:
         current = stack.pop()
-
-
         if current not in iterated:
-        
             iterated.append(current)
             temp = []
             for node in graph.neighbors(current):
+                if(bool(parents) == False):
+                    parents[current] = None
+                    parents[node] = current
                 if node not in iterated:
+                    parents[node] = current
                     temp.append(node)
-                    temp = temp[::-1]
-                    print("temp ", temp)
-                    for t in temp:
-                        if current in stack:
-                            stack.remove(current)
-                        stack.append(t)
-
-        
-
-
-        print("current ", current)
-        print("stack ", stack)
-        print("iterated ", iterated)
+            temp = temp[::-1]
             
-    # print("stack ", stack)
-    # print("iterated ", iterated)
+            for t in temp:
+                if current in stack:
+                    stack.remove(current)
+                stack.append(t)
+
+    if dest_node in parents: #checks to see if the destination node is in parents, continue
+        current = dest_node
+        while parents[current]:
+            for node in parents:
+                if current == node:
+                    path.append(g.Edge(parents[node], current, graph.get_edge_weight(parents[node],current)))
+                    current = parents[node]
+                    
+    path = path[::-1]
+    return path
 
 def dijkstra_search(graph, initial_node, dest_node):
     """
