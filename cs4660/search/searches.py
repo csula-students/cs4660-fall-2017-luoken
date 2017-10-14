@@ -58,116 +58,35 @@ def dfs(graph, initial_node, dest_node):
     parents = {}
     stack = []
 
+    stack.append(initial_node)
+
+    while stack:
+        current = stack.pop()
 
 
-    # stack.append(initial_node)
-
-    # current = stack.pop()
-    # iterated.append(current)
-    # print(stack)
-
-    
-    # temp = []
-    # for node in graph.neighbors(current):
-    #     if node not in iterated:
-    #         temp.append(node)
-
-    # temp = temp[::-1]
-    # for t in temp:
-    #     stack.append(t)
+        if current not in iterated:
+        
+            iterated.append(current)
+            temp = []
+            for node in graph.neighbors(current):
+                if node not in iterated:
+                    temp.append(node)
+                    temp = temp[::-1]
+                    print("temp ", temp)
+                    for t in temp:
+                        if current in stack:
+                            stack.remove(current)
+                        stack.append(t)
 
         
-    # current = stack.pop()
-    # iterated.append(current)
-    # del temp[:]
 
-    # for node in graph.neighbors(current):
-    #     if node not in iterated:
-    #         temp.append(node)
 
-    # temp = temp[::-1]
-    # for t in temp:
-    #     stack.append(t)
-
-        
+        print("current ", current)
+        print("stack ", stack)
+        print("iterated ", iterated)
+            
     # print("stack ", stack)
     # print("iterated ", iterated)
-
-
-    # current = stack.pop()
-    # iterated.append(current)
-    # del temp[:]
-
-    # for node in graph.neighbors(current):
-    #     if node not in iterated:
-    #         temp.append(node)
-
-    # temp = temp[::-1]
-    # for t in temp:
-    #     stack.append(t)
-
-        
-    # print("stack ", stack)
-    # print("iterated ", iterated)
-
-
-    # current = stack.pop()
-    # iterated.append(current)
-    # del temp[:]
-
-    # for node in graph.neighbors(current):
-    #     if node not in iterated:
-    #         temp.append(node)
-
-    # temp = temp[::-1]
-    # for t in temp:
-    #     stack.append(t)
-
-        
-    # print("stack ", stack)
-    # print("iterated ", iterated)
-
-    
-    # current = stack.pop()
-    # iterated.append(current)
-    # del temp[:]
-
-    # for node in graph.neighbors(current):
-    #     if node not in iterated:
-    #         temp.append(node)
-
-    # temp = temp[::-1]
-    # for t in temp:
-    #     if current in stack:
-    #         remove(current)
-    #         stack.append(t)
-
-        
-    # print("stack ", stack)
-    # print("iterated ", iterated)
-
-    
-    # current = stack.pop()
-    # iterated.append(current)
-    # del temp[:]
-
-    # for node in graph.neighbors(current):
-    #     if node not in iterated:
-    #         temp.append(node)
-
-    # temp = temp[::-1]
-    # for t in temp:
-    #     stack.append(t)
-
-        
-    # print("stack ", stack)
-    # print("iterated ", iterated)
-
-
-
-    
-    
-    
 
 def dijkstra_search(graph, initial_node, dest_node):
     """
