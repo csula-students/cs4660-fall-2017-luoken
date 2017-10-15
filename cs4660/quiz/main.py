@@ -47,10 +47,21 @@ def __json_request(target_url, body):
     response = json.load(urlopen(req, jsondataasbytes))
     return response
 
+
+def bfs(start, end):
+    return True
+    
+
 if __name__ == "__main__":
     # Your code starts here
-    empty_room = get_state('7f3dc077574c013d98b2de8f735058b4')
-    end_room = 'f1f131f647621a4be7c71292e79613f9'
+    start_point = '7f3dc077574c013d98b2de8f735058b4'
+    empty_room = get_state(start_point)
+    #end_room = get_state('f1f131f647621a4be7c71292e79613f9')
+    end_point = 'f1f131f647621a4be7c71292e79613f9'
+    #end_point = '0d1d67f3e6bf24e4c2acff975025a497'
+    end_room = get_state(end_point)
+
+
     # print(empty_room)
     # for x in empty_room['neighbors']:
     #     print(transition_state(empty_room['id'], x['id']))
@@ -60,39 +71,84 @@ if __name__ == "__main__":
     #     print(room)
     # print(empty_room['neighbors'])
 
+    # Q = Queue()
+    # q.put(empty_room)
+    # iterated = []
+    # path = []
+    # parents = {}
+    # #need to get state of new current
+    # while q:
+    #     if(q.empty()):
+    #         break
+    #     current = q.get(0)
+
+    #     for value in get_state(current['id'])['neighbors']:
+    #         for x in current['neighbors']:
+    #             if x not in iterated:
+    #                 iterated.append(x)
+    #             if (bool(parents) == False):
+    #                 parents[current['id']] = None
+    #                 parents[x['id']] = current['id']
+    #             else:
+    #                 if x['id'] not in parents:
+    #                     parents[x['id']] = current['id']
+    #                 #q.put(get_state(x))
+
+    #             print("x ", x['id'])
+    #         print("value ", value['id'])
+
     q = Queue()
-    q.put(empty_room)
+    q.put(start_point)
+
     iterated = []
     path = []
     parents = {}
-    #need to get state of new current
+
     while q:
         if(q.empty()):
             break
+
         current = q.get(0)
-#        print(get_state(current['id']))
-        #print current['neighbors'][0]
-        for value in get_state(current['id']):
-            for x in current['neighbors']:
-                if x not in iterated:
-                    #if current['neighbors'] not in iterated:
-                    iterated.append(x)
-                if (bool(parents) == False):
-#            parents[x['id']] = None
-                    parents[current['id']] = None
-                    parents[x['id']] = current['id']
-                #parents[x] = current
-                else:
-                    if x['id'] not in parents:
-                        parents[x['id']] = current['id']
-                q.put(x)
+        
+        if current == end_point:
+            break
+        
+        if current not in iterated:
+            iterated.append(current)
+        
+        for point in get_state(current)['neighbors']:
+            if(bool(parents) == False):
+                parents[current] = None
+                parents[point['id']] = current
+            else:
+                if point['id'] not in parents:
+                    parents[point['id']] = current
+            print(point)
+            print(point['id'])
+            q.put(point['id'])
+            
 
 
-
-    if end_room in parents:
+    if end_point in parents:
         print("yes")
     else:
         print("no")
-
     
-
+    print("current ", current)
+    print
+    print
+    print("parents ", parents)
+    #need from where? id, to where and effect?
+    print
+    print "start"
+    print
+    print empty_room['id']
+    print
+    print empty_room
+    print
+    print transition_state(empty_room['id'], empty_room['neighbors'][0]['id'])
+    print
+    print empty_room['neighbors'][0]['id']
+    print
+    for x in empty_room['neighbors']:
+        print transition_state(empty_room['id'], x['id'])
