@@ -2,7 +2,7 @@
 Searches module defines all different search algorithms"""
 
 from graph import graph as g
-from queue import Queue
+from queue import Queue, PriorityQueue
 
 def bfs(graph, initial_node, dest_node):
     """
@@ -98,7 +98,34 @@ def dijkstra_search(graph, initial_node, dest_node):
     uses graph to do search from the initial_node to dest_node
     returns a list of actions going from the initial node to dest_node
     """
+
+    pq = PriorityQueue()
+    pq.put((0, initial_node))
+
+    parent = {}
+    cost = {}
+
+    parent[initial_node] = None
+    cost[initial_node] = 0
+
+    while not pq.empty():
+        current = pq.get()
+
+        if current[1] == dest_node:
+            break
+
+        for next in graph.neighbors(current[1]):
+            print(parent[next])
+            new_cost = cost[current[0]] + graph.get_edge_weight(parent[next[1]],current[1])
+            if next not in cost or new_cost < cost[next[1]]:
+                cost[next] = new_cost
+                priority = new_cost
+                pq.put((priority, next))
+                parent[next] = current
+
     
+    print(cost)
+
     
 
 def a_star_search(graph, initial_node, dest_node):
