@@ -10,7 +10,7 @@ TODO: implement Dijkstra utilizing the path with highest effect number
 import json
 import codecs
 
-import queue
+from queue import Queue, PriorityQueue
 
 # http lib import for Python 2 and 3: alternative 4
 try:
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     end_point = 'f1f131f647621a4be7c71292e79613f9'
     end_room = get_state(end_point)
 
-    q = queue.Queue()
+    q = Queue()
     q.put(start_point)
 
     iterated = []
@@ -104,47 +104,69 @@ if __name__ == "__main__":
     # print(empty_room['location'])['name']
     # print
     # print(empty_room['neighbors'])
-    print("BFS")
-    while q:
-        if(q.empty()):
-            break
 
-        current = q.get(0)
-        
-        if current == end_point:
-            break
-        
-        if current not in iterated:
-            iterated.append(current)
-        
-        for point in get_state(current)['neighbors']:
-            if(bool(parents) == False):
-                parents[current] = None
-                parents[point['id']] = current
-            else:
-                if point['id'] not in parents:
-                    parents[point['id']] = current
-            q.put(point['id'])
+    # print("BFS")
+    # while q:
+    #     if(q.empty()):
+    #         break
 
-    if end_point in parents:
-        current = end_point
+    #     current = q.get(0)
+        
+    #     if current == end_point:
+    #         break
+        
+    #     if current not in iterated:
+    #         iterated.append(current)
+        
+    #     for point in get_state(current)['neighbors']:
+    #         if(bool(parents) == False):
+    #             parents[current] = None
+    #             parents[point['id']] = current
+    #         else:
+    #             if point['id'] not in parents:
+    #                 parents[point['id']] = current
+    #         q.put(point['id'])
 
-        while current:
-            for value in parents:
-                if current == value:
-                    x = transition_state(get_state(parents[current])['id'], get_state(current)['id'])['event']['effect']
-                    #print(transition_state(get_state(parents[current])['id'], get_state(current)['id']))['action']
+    # if end_point in parents:
+    #     current = end_point
+
+    #     while current:
+    #         for value in parents:
+    #             if current == value:
+    #                 x = transition_state(get_state(parents[current])['id'], get_state(current)['id'])['event']['effect']
+    #                 #print(transition_state(get_state(parents[current])['id'], get_state(current)['id']))['action']
                     
-                    path.append({"from_node" : parents[current], "to_node" : current, "effect": x})
-                    #print("value ", value)
-                    current = parents[value]
+    #                 path.append({"from_node" : parents[current], "to_node" : current, "effect": x})
+    #                 #print("value ", value)
+    #                 current = parents[value]
                  
-    path = path[::-1]
+    # path = path[::-1]
 
-    Total_HP = 100
-    for p in path:
-        print (str(get_state(p['from_node'])['location']['name']) + " " + str(p['from_node']) + " : " +  str(get_state(p['to_node'])['location']['name']) + " " +  str(p['to_node']) + " : " + str(p['effect']))
-        Total_HP = Total_HP + p['effect']
-    print("Total HP: " + str(Total_HP))
+    # Total_HP = 100
+    # for p in path:
+    #     print (str(get_state(p['from_node'])['location']['name']) + " " + str(p['from_node']) + " : " +  str(get_state(p['to_node'])['location']['name']) + " " +  str(p['to_node']) + " : " + str(p['effect']))
+    #     Total_HP = Total_HP + p['effect']
+    # print("Total HP: " + str(Total_HP))
 
-    
+
+
+    print("Dijkstras")
+    pq = PriorityQueue()
+    pq.put((0, start_point))
+    came_from = {}
+    cost = {}
+    came_from[start_point] = None
+    cost[start_point] = 0
+
+    while not pq.empty():
+        current = pq.get()
+
+        if current[1] == end_point:
+            break
+
+        for next in get_state(current[1]):
+            new_cost = cost[current[1]]
+            #print(get_state(current[1])['id']['event']['effect'])
+            #print(get_state(current[1]))
+
+            #print(new_cost)
