@@ -8,7 +8,9 @@ TODO: implement Dijkstra utilizing the path with highest effect number
 """
 
 import json
-from Queue import Queue
+import codecs
+
+import queue
 
 # http lib import for Python 2 and 3: alternative 4
 try:
@@ -18,6 +20,44 @@ except ImportError:
 
 GET_STATE_URL = "http://192.241.218.106:9000/getState"
 STATE_TRANSITION_URL = "http://192.241.218.106:9000/state"
+
+def get_path(current_node, distances_d, parents_d):
+    path = []
+    parent_node = parents_d[current_node]
+    while(parent_node != None):
+        distance =  distances_d[current_node] - distances_d[parent_node]
+        edge = Edge(parent_node, current_node, distance)
+        path.append(edge)
+        current_node = parent_node # for next loop
+        parent_node = parents_d[current_node]
+    
+    path.reverse()
+    return path
+
+def get_edge(from_node_id, to_node_id, edge):
+    weight = edge['event']['effect']
+    return Edge(from_node_id, to_node_id, weight)
+
+def distance(edge):
+    if(edge != type(Edge) ):
+        return edge['event']['effect']
+    else:
+        return edge.weight
+
+def room_print_format(edge):
+    from_node_id = edge.from_node
+    to_node_id = edge.to_node
+    
+    from_node = get_state(from_node_id)
+    to_node = get_state(to_node_id)
+    
+    from_node_name = from_node['location']['name']
+    to_node_name = to_node['location']['name']
+    
+    weight = edge.weight
+    
+    print(from_node_name, "(", from_node_id, ") : ", to_node_name, "(", to_node_id, ") : ", weight )
+
 
 def get_state(room_id):
     """
@@ -44,7 +84,8 @@ def __json_request(target_url, body):
     jsondata = json.dumps(body)
     jsondataasbytes = jsondata.encode('utf-8')   # needs to be bytes
     req.add_header('Content-Length', len(jsondataasbytes))
-    response = json.load(urlopen(req, jsondataasbytes))
+    reader = codecs.getreader("utf-8")
+    response = json.load(reader(urlopen(req, jsondataasbytes)))
     return response
 
 if __name__ == "__main__":
@@ -54,7 +95,7 @@ if __name__ == "__main__":
     end_point = 'f1f131f647621a4be7c71292e79613f9'
     end_room = get_state(end_point)
 
-    q = Queue()
+    q = queue.Queue()
     q.put(start_point)
 
     iterated = []
@@ -106,4 +147,4 @@ if __name__ == "__main__":
         Total_HP = Total_HP + p['effect']
     print("Total HP: " + str(Total_HP))
 
-
+    
