@@ -105,48 +105,48 @@ if __name__ == "__main__":
     # print
     # print(empty_room['neighbors'])
 
-    # print("BFS")
-    # while q:
-    #     if(q.empty()):
-    #         break
+    print("BFS")
+    while q:
+        if(q.empty()):
+            break
 
-    #     current = q.get(0)
+        current = q.get(0)
         
-    #     if current == end_point:
-    #         break
+        if current == end_point:
+            break
         
-    #     if current not in iterated:
-    #         iterated.append(current)
+        if current not in iterated:
+            iterated.append(current)
         
-    #     for point in get_state(current)['neighbors']:
-    #         if(bool(parents) == False):
-    #             parents[current] = None
-    #             parents[point['id']] = current
-    #         else:
-    #             if point['id'] not in parents:
-    #                 parents[point['id']] = current
-    #         q.put(point['id'])
+        for point in get_state(current)['neighbors']:
+            if(bool(parents) == False):
+                parents[current] = None
+                parents[point['id']] = current
+            else:
+                if point['id'] not in parents:
+                    parents[point['id']] = current
+            q.put(point['id'])
 
-    # if end_point in parents:
-    #     current = end_point
+    if end_point in parents:
+        current = end_point
 
-    #     while current:
-    #         for value in parents:
-    #             if current == value:
-    #                 x = transition_state(get_state(parents[current])['id'], get_state(current)['id'])['event']['effect']
-    #                 #print(transition_state(get_state(parents[current])['id'], get_state(current)['id']))['action']
+        while current:
+            for value in parents:
+                if current == value:
+                    x = transition_state(get_state(parents[current])['id'], get_state(current)['id'])['event']['effect']
+                    #print(transition_state(get_state(parents[current])['id'], get_state(current)['id']))['action']
                     
-    #                 path.append({"from_node" : parents[current], "to_node" : current, "effect": x})
-    #                 #print("value ", value)
-    #                 current = parents[value]
+                    path.append({"from_node" : parents[current], "to_node" : current, "effect": x})
+                    #print("value ", value)
+                    current = parents[value]
                  
-    # path = path[::-1]
+    path = path[::-1]
 
-    # Total_HP = 100
-    # for p in path:
-    #     print (str(get_state(p['from_node'])['location']['name']) + " " + str(p['from_node']) + " : " +  str(get_state(p['to_node'])['location']['name']) + " " +  str(p['to_node']) + " : " + str(p['effect']))
-    #     Total_HP = Total_HP + p['effect']
-    # print("Total HP: " + str(Total_HP))
+    Total_HP = 100
+    for p in path:
+        print (str(get_state(p['from_node'])['location']['name']) + " " + str(p['from_node']) + " : " +  str(get_state(p['to_node'])['location']['name']) + " " +  str(p['to_node']) + " : " + str(p['effect']))
+        Total_HP = Total_HP + p['effect']
+    print("Total HP: " + str(Total_HP))
 
 
 
