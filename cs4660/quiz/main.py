@@ -105,48 +105,48 @@ if __name__ == "__main__":
     # print
     # print(empty_room['neighbors'])
 
-    print("BFS")
-    while q:
-        if(q.empty()):
-            break
+    # print("BFS")
+    # while q:
+    #     if(q.empty()):
+    #         break
 
-        current = q.get(0)
+    #     current = q.get(0)
         
-        if current == end_point:
-            break
+    #     if current == end_point:
+    #         break
         
-        if current not in iterated:
-            iterated.append(current)
+    #     if current not in iterated:
+    #         iterated.append(current)
         
-        for point in get_state(current)['neighbors']:
-            if(bool(parents) == False):
-                parents[current] = None
-                parents[point['id']] = current
-            else:
-                if point['id'] not in parents:
-                    parents[point['id']] = current
-            q.put(point['id'])
+    #     for point in get_state(current)['neighbors']:
+    #         if(bool(parents) == False):
+    #             parents[current] = None
+    #             parents[point['id']] = current
+    #         else:
+    #             if point['id'] not in parents:
+    #                 parents[point['id']] = current
+    #         q.put(point['id'])
 
-    if end_point in parents:
-        current = end_point
+    # if end_point in parents:
+    #     current = end_point
 
-        while current:
-            for value in parents:
-                if current == value:
-                    x = transition_state(get_state(parents[current])['id'], get_state(current)['id'])['event']['effect']
-                    #print(transition_state(get_state(parents[current])['id'], get_state(current)['id']))['action']
+    #     while current:
+    #         for value in parents:
+    #             if current == value:
+    #                 x = transition_state(get_state(parents[current])['id'], get_state(current)['id'])['event']['effect']
+    #                 #print(transition_state(get_state(parents[current])['id'], get_state(current)['id']))['action']
                     
-                    path.append({"from_node" : parents[current], "to_node" : current, "effect": x})
-                    #print("value ", value)
-                    current = parents[value]
+    #                 path.append({"from_node" : parents[current], "to_node" : current, "effect": x})
+    #                 #print("value ", value)
+    #                 current = parents[value]
                  
-    path = path[::-1]
+    # path = path[::-1]
 
-    Total_HP = 100
-    for p in path:
-        print (str(get_state(p['from_node'])['location']['name']) + " " + str(p['from_node']) + " : " +  str(get_state(p['to_node'])['location']['name']) + " " +  str(p['to_node']) + " : " + str(p['effect']))
-        Total_HP = Total_HP + p['effect']
-    print("Total HP: " + str(Total_HP))
+    # Total_HP = 100
+    # for p in path:
+    #     print (str(get_state(p['from_node'])['location']['name']) + " " + str(p['from_node']) + " : " +  str(get_state(p['to_node'])['location']['name']) + " " +  str(p['to_node']) + " : " + str(p['effect']))
+    #     Total_HP = Total_HP + p['effect']
+    # print("Total HP: " + str(Total_HP))
 
 
 
@@ -157,16 +157,65 @@ if __name__ == "__main__":
     cost = {}
     came_from[start_point] = None
     cost[start_point] = 0
+    visited = {}
+    visited[start_point] = None
+    total_hp = 100
+
+    s = '2b04cd8a31bfd09aa663787fbb150265'
+    for x in get_state(s)['neighbors']:
+        #print(x)
+        print(transition_state(s, x['id']))
+        print(transition_state(s, x['id'])['event']['effect'] * -1)
 
     while not pq.empty():
-        current = pq.get()
+        current = pq.get(pq.qsize()-1)
 
         if current[1] == end_point:
             break
 
-        for next in get_state(current[1]):
-            new_cost = cost[current[1]]
-            #print(get_state(current[1])['id']['event']['effect'])
+
+#        print(pq.get(pq.qsize()-1))
+
+        for next in get_state(current[1])['neighbors']:
+            new_cost = (cost[current[1]] + (transition_state(current[1], next['id'])['event'] ['effect']))
+            print(new_cost)
+            print("\n")
+            print(transition_state(current[1], next['id']))
+            print("\n")
+            
+            print("\n")
+            
+            if next['id'] not in visited:
+                if next['id'] not in cost or new_cost < cost[next['id']] :
+                    cost[next['id']] = new_cost
+                    priority = new_cost
+                    pq.put((priority, next['id']))
+                    came_from[next['id']] = current[1]
+                    visited[next['id']] = current[1]
+            print(came_from[next['id']])
+            print("\n")            
+
+
+            # print(transition_state(current[1], next['id'])['event']['effect'])
+            # print
+            # print("\n")
+            # print(transition_state(current[1], next['id']))
+            # print("\n")
+            # print(current[1])
+            # print(get_state(current[1])['neighbors'])
             #print(get_state(current[1]))
 
             #print(new_cost)
+
+    # print(cost)
+    # print("\n")
+    # print(came_from)
+
+    for c in cost:
+        total_hp += cost[c]
+        #print(cost[c])
+
+
+    print("total hp ", total_hp)
+
+    
