@@ -101,30 +101,42 @@ def dijkstra_search(graph, initial_node, dest_node):
 
     pq = PriorityQueue()
     pq.put((0, initial_node))
+    path = []
 
     parent = {}
     cost = {}
-
     parent[initial_node] = None
     cost[initial_node] = 0
 
     while not pq.empty():
         current = pq.get()
-
+        # print(graph.neighbors(current[1]))
+        # break
         if current[1] == dest_node:
             break
+        for node in graph.neighbors(current[1]):
+            new_cost = cost[current[1]] + graph.get_edge_weight(current[1], node)
 
-        for next in graph.neighbors(current[1]):
-            print(parent[next])
-            new_cost = cost[current[0]] + graph.get_edge_weight(parent[next[1]],current[1])
-            if next not in cost or new_cost < cost[next[1]]:
-                cost[next] = new_cost
-                priority = new_cost
-                pq.put((priority, next))
-                parent[next] = current
+            if node not in cost or new_cost < cost[node]:
+                cost[node] = new_cost
+                pq.put((new_cost, node))
+                parent[node] = current[1]
+
+        
+    if dest_node in parent:
+        current = dest_node
+        while parent[current]:
+            for node in parent:
+                if current == node:
+                    path.append(g.Edge(parent[node], current, graph.get_edge_weight(parent[node], current)))
+                    current = parent[node]
+
+    path = path[::-1]
+
+    return path
+
 
     
-    print(cost)
 
     
 
