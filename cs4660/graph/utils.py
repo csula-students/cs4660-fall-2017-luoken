@@ -38,7 +38,22 @@ def parse_grid_file(graph, file_path):
     # TODO: read the filepaht line by line to construct nodes & edges
     
     # TODO: for each node/edge above, add it to graph
+    openFile = open(file_path)
+    readFile = openFile.read()
+    splitByNewLine = readFile.split("\n")
 
+    lineSplit = [line.split("|") for line in splitByNewLine]
+
+    lineSplit = lineSplit[1:-1]
+
+    lineAppender = []
+
+    for line in lineSplit:
+        if len(line) == 3:
+            lineAppender.append(line[1])
+
+    for line in lineAppender:
+        print(line)
     return graph
 
 def convert_edge_to_grid_actions(edges):
