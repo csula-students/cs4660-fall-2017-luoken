@@ -136,9 +136,6 @@ def dijkstra_search(graph, initial_node, dest_node):
     return path
 
 
-    
-
-    
 
 def a_star_search(graph, initial_node, dest_node):
     """
