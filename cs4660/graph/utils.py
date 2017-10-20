@@ -52,8 +52,8 @@ def parse_grid_file(graph, file_path):
         if len(line) == 3:
             lineAppender.append(line[1])
 
-    for line in lineAppender:
-        print(line)
+
+    
     return graph
 
 def convert_edge_to_grid_actions(edges):
