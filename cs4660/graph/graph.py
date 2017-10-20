@@ -137,11 +137,6 @@ class AdjacencyList(object):
     def add_edge(self, edge):
         if edge not in self.adjacency_list[edge.from_node]:
             self.adjacency_list[edge.from_node].append(edge)
-            # listofshit = self.adjacency_list[Node(1)]
-            # for shit in listofshit:
-            #     if(shit.from_node == Node(1) and shit.to_node == Node(2)):
-            #         print(shit)
-            #         print(shit.weight)
             return True
         else:
             return False
